@@ -7,7 +7,7 @@ layout: default
 This guide will help you setup a server (works on both cloud and dedicated) with Debian 12, Root-on-ZFS filesystem and ZFSBootMenu as GRUB alternative.
 
 {: .danger }
-As every other tutorial on here, it requires THINKING YOURSELF and not blindly copying the stuff you find here. And now: Have fun!
+If you are following this tutorial on Hetzner Cloud virtual machines, please note that not all instance types are equipped with UEFI. If you want to make sure you get an UEFI-enabled instance, please select one of the `dedicated vCPU` instance types.
 
 ## Reboot your server into recovery system
 
