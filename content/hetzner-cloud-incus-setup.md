@@ -9,7 +9,7 @@ This guide will help you setup an [Incus](https://linuxcontainers.org/incus/) no
 {: .danger }
 As every other tutorial on here, it requires THINKING YOURSELF and not blindly copying the stuff you find here. And now: Have fun!
 
-# Partition your disk
+## Partition your disk
 You can either boot into a custom GParted ISO if you like GUI tools, or boot into recovery OS and use `cfdisk`.
 
 In this tutorial we are using the smallest disk size, because our data will live on an external Cloud volume. This setup requires additional partitions to speed up our ZFS storage pool.
@@ -22,10 +22,10 @@ We want the following partition layout:
 2. 3GB partition for SLOG
 3. 57GB (rest of disk) for L2ARC
 
-# Install Incus from Zabbly repository
+## Install Incus from Zabbly repository
 [https://github.com/zabbly/incus](https://github.com/zabbly/incus)
 
-# Configure Incus
+## Configure Incus
 Please select correct option for ZFS pool setup. If you are using Cloud volume, select:
 - yes, setup new ZFS pool
 - yes, use external block device
@@ -35,7 +35,7 @@ Please select correct option for ZFS pool setup. If you are using Cloud volume, 
 incus admin init
 ```
 
-# Customize Incus environment
+## Customize Incus environment
 ```shell
 apt install git lz4 -y
 git clone https://github.com/janxb/serverutils /usr/local/sbin/
@@ -74,7 +74,7 @@ incus profile set default snapshots.schedule.stopped "true"
 incus profile set default snapshots.expiry "1w"
 ```
 
-# Final notes
+## Final notes
 In one of the earlier steps, you checked out my scripts GIT repository at [https://github.com/janxb/serverutils](https://github.com/janxb/serverutils).
 
 This repo also contains some useful scripts for managing your incus installation, for example:

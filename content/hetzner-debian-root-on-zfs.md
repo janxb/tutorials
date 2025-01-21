@@ -106,7 +106,7 @@ efibootmgr -c -d "/dev/nvme0n1" -p "1" \
 efibootmgr -o x,x,x...
 ```
 
-# Final steps
+## Final steps
 ```shell
 exit
 umount -n -R /mnt
