@@ -11,8 +11,13 @@ As every other tutorial on here, it requires THINKING YOURSELF and not blindly c
 
 ## Reboot your server into recovery system
 
-## Partition, format and mount your disk 
+## Partition, format and mount your disk(s) 
 I recommend using `cfdisk` utility for managing partitions.
+
+This tutorial was created using a dedicated server with NVME disks. If you are working with other disk types or on an Hetzner Cloud instance, you need to adjust your `/dev/...` device names accordingly.
+
+If your server has more than one disk, you need to format all of them with the following layout:
+
 1. small partition (100MB) with type `EFI system`
 2. rest of the disk default `Linux Filesystem`
 
