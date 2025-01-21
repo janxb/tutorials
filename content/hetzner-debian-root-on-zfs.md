@@ -77,6 +77,17 @@ passwd
 # adjust /etc/resolv.conf to your liking
 
 # adjust /etc/network/interfaces to your network setup
+echo "
+auto eno1
+iface eno1 inet static
+  address xx.xx.xx.xx
+  netmask 255.255.255.255
+  gateway xx.xx.xx.xx
+iface eno1 inet6 static
+  address 2a01::xxxxxxxx
+  netmask 64
+  gateway fe80::1
+" > /etc/network/interfaces
 
 apt update && apt install -y locales && dpkg-reconfigure locales && apt install -y efibootmgr wget console-setup openssh-server
 
