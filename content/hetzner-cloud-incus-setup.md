@@ -4,7 +4,7 @@ layout: default
 ---
 
 {: .note }
-This guide will help you setup an [Incus](https://linuxcontainers.org/incus/) node with Debian 12 OS and an external Cloud volume as ZFS storage pool. It can also be perfectly combined with my [Root-on-ZFS tutorial](/hetzner-debian-root-on-zfs.html).
+This guide will help you setup an [Incus](https://linuxcontainers.org/incus/) node with Debian 12 OS and an external Cloud volume as ZFS storage pool. It can also be perfectly combined with my [Root-on-ZFS tutorial](hetzner-debian-root-on-zfs.html).
 
 {: .danger }
 As every other tutorial on here, it requires THINKING YOURSELF and not blindly copying the stuff you find here. And now: Have fun!
