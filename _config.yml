@@ -3,10 +3,12 @@ description: A random selection of notes/tutorials that have been created during
 theme: just-the-docs
 source: content
 
+color_scheme: dark
+
 url: https://janxb.github.io/tutorials
 
 aux_links:
-  Template Repository: https://github.com/janxb/tutorials
+  brodda.IT: https://brodda.it
 
 callouts:
   warning:
