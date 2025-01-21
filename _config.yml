@@ -7,3 +7,15 @@ url: https://janxb.github.io/tutorials
 
 aux_links:
   Template Repository: https://github.com/janxb/tutorials
+
+callouts:
+  warning:
+    color: yellow
+  info:
+    color: blue
+  success:
+    color: green
+  note:
+    color: purple
+  danger:
+    color: red
