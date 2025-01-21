@@ -10,7 +10,7 @@ This guide will help you setup an [Incus](https://linuxcontainers.org/incus/) no
 As every other tutorial on here, it requires THINKING YOURSELF and not blindly copying the stuff you find here. And now: Have fun!
 
 # Partition your disk
-You can either boot into a custom GParted ISO if you like GUI tools, or boot into recovery OS.
+You can either boot into a custom GParted ISO if you like GUI tools, or boot into recovery OS and use `cfdisk`.
 
 In this tutorial we are using the smallest disk size, because our data will live on an external Cloud volume. This setup requires additional partitions to speed up our ZFS storage pool.
 
