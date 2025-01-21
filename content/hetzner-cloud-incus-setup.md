@@ -23,7 +23,7 @@ We want the following partition layout:
 3. 57GB (rest of disk) for L2ARC
 
 # Install Incus from Zabbly repository
-[https://github.com/zabbly/incus]
+[https://github.com/zabbly/incus](https://github.com/zabbly/incus)
 
 # Configure Incus
 Please select correct option for ZFS pool setup. If you are using Cloud volume, select:
