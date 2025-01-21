@@ -9,3 +9,101 @@ This guide will help you setup a server (works on both cloud and dedicated) with
 {: .danger }
 As every other tutorial on here, it requires THINKING YOURSELF and not blindly copying the stuff you find here. And now: Have fun!
 
+## Reboot your server into recovery system
+
+## Partition, format and mount your disk 
+I recommend using `cfdisk` utility for managing partitions.
+1. small partition (100MB) with type `EFI system`
+2. rest of the disk default `Linux Filesystem`
+
+```shell
+mkfs.vfat -F32 /dev/nvme0n1p1
+
+zpool create \
+-o compatibility=openzfs-2.1-linux \
+-o autotrim=on \
+-O compression=lz4 \
+-O acltype=posixacl \
+-O xattr=sa \
+-O relatime=on \
+-O canmount=off \
+-O mountpoint=none \
+data /dev/nvme0n1p2
+
+zfs create -o mountpoint=/ -o canmount=noauto data/root
+
+zpool set bootfs=data/root data
+
+zpool export data
+zpool import -N -R /mnt data && zfs mount data/root
+```
+
+## Install base debian system
+
+```shell
+debootstrap bookworm /mnt
+
+for i in /dev /dev/pts /proc /sys /sys/firmware/efi/efivars /run; do mount -B $i /mnt$i; done
+
+# repeat if you have multiple disks to make all of them bootable later
+mkdir -p /mnt/boot/efi1
+
+# get block IDs of our created EFI partitions
+blkid | grep vfat
+
+# replace XXX with the ID from above, duplicate mount if you have multiple disks
+echo "
+UUID=XXXX-XXXX  /boot/efi1      vfat    umask=0022,fmask=0022,dmask=0022      0       1
+" >> /mnt/etc/fstab
+
+echo "
+deb http://deb.debian.org/debian bookworm contrib main non-free-firmware
+deb http://deb.debian.org/debian bookworm-updates contrib main non-free-firmware
+deb http://deb.debian.org/debian-security bookworm-security contrib main non-free-firmware
+" > /mnt/etc/apt/sources.list
+
+cp /etc/hosts /mnt/etc/hosts
+
+chroot /mnt
+
+# IMPORTANT!
+passwd
+
+# adjust /etc/resolv.conf to your liking
+
+# adjust /etc/network/interfaces to your network setup
+
+apt update && apt install -y locales && dpkg-reconfigure locales && apt install -y efibootmgr wget console-setup openssh-server
+
+# enable PermitRootLogin in /etc/ssh/sshd_config
+
+apt install -y linux-image-amd64 zfs-initramfs dosfstools
+
+update-initramfs -c -k all
+```
+
+## Install ZFSBootManager on all EFI partitions
+
+```shell
+mount -a
+
+wget https://github.com/zbm-dev/zfsbootmenu/releases/download/v2.3.0/zbm-kcl && chmod +x zbk-kcl
+
+# repeat for all disks that have EFI partition
+mkdir -p /boot/efi1/EFI/ZBM
+wget https://get.zfsbootmenu.org/efi -O /boot/efi1/EFI/ZBM/VMLINUZ.EFI
+./zbm-kcl -a zbm.skip /boot/efi1/EFI/ZBM/VMLINUZ.EFI
+efibootmgr -c -d "/dev/nvme0n1" -p "1" \
+  -L "ZFSBootMenu" \
+  -l '\EFI\ZBM\VMLINUZ.EFI'
+
+# IMPORTANT! change boot order, PXE boot at first position
+efibootmgr -o x,x,x...
+```
+
+# Final steps
+```shell
+exit
+umount -n -R /mnt
+reboot
+```
