@@ -22,6 +22,7 @@ If your server has more than one disk, you need to format all of them with the f
 2. rest of the disk default `Linux Filesystem`
 
 ```shell
+# repeat for additional disks if required
 mkfs.vfat -F32 /dev/nvme0n1p1
 
 zpool create \
