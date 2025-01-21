@@ -51,6 +51,9 @@ zfs set compression=lz4 $POOL
 zpool set autoexpand=on $POOL
 zpool set autotrim=on $POOL
 
+# get partitions to use in following command
+lsblk
+
 # add special devices to your pool, adjust sdXX as required
 zpool add $POOL cache /dev/sdXX # large 57GB L2ARC partition
 zpool add $POOL log /dev/sdXX # small 3GB SLOG partition
