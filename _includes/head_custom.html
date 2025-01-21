@@ -1,0 +1,10 @@
+<script defer src="https://tracking.brodda.it/sync_content.js" data-website-id="58e81b64-52fe-4431-bece-1900f665ac4b"></script>
+<script defer>
+document.addEventListener("DOMContentLoaded", function(event) { 
+	fetch("https://ip-info.brodda.it")
+	   .then(response => response.text())
+	   .then((response) => {
+		   umami.identify({ connection_type: response });
+	   })
+});
+</script>
