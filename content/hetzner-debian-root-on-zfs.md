@@ -121,6 +121,10 @@ efibootmgr -o x,x,x...
 
 ## Additional configuration of our new OS
 ```shell
+# clone server utils scripts
+apt install -y git
+git clone https://github.com/janxb/serverutils.git /usr/local/sbin
+
 apt install -y bash-completion
 echo "
 if [ -f /etc/bash_completion ]; then
