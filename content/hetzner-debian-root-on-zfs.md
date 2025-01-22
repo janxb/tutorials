@@ -1,3 +1,4 @@
+
 ---
 title: Hetzner debian server with Root-on-ZFS
 layout: default
@@ -116,6 +117,32 @@ efibootmgr -c -d "/dev/nvme0n1" -p "1" \
 
 # IMPORTANT! change boot order, PXE boot at first position
 efibootmgr -o x,x,x...
+```
+
+## Additional configuration of our new OS
+```shell
+apt install -y bash-completion
+echo "
+if [ -f /etc/bash_completion ]; then
+  . /etc/bash_completion
+fi
+" >> ~/.bashrc
+
+# automatic upgrades for all packages
+apt install -y unattended-upgrades
+echo '
+APT::Periodic::Enable "1";
+APT::Periodic::Update-Package-Lists "1";
+APT::Periodic::Download-Upgradeable-Packages "1";
+APT::Periodic::Unattended-Upgrade "1";
+APT::Periodic::AutocleanInterval "14";
+APT::Periodic::Verbose "0";
+' > /etc/apt/apt.conf.d/51unattended-upgrades-custom-config
+echo '
+Unattended-Upgrade::Origins-Pattern {
+  "origin=*";
+};
+' > /etc/apt/apt.conf.d/52unattended-upgrades-custom-origins
 ```
 
 ## Final steps
