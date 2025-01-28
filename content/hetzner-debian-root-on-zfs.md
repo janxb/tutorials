@@ -1,4 +1,3 @@
-
 ---
 title: Hetzner debian server with Root-on-ZFS
 layout: default
