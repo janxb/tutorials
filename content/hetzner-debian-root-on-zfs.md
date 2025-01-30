@@ -78,6 +78,7 @@ passwd
 # adjust /etc/resolv.conf to your liking
 
 # adjust /etc/network/interfaces to your network setup
+# you can find the network interface name via 'ip link show'
 echo "
 auto eno1
 iface eno1 inet static
@@ -152,5 +153,6 @@ Unattended-Upgrade::Origins-Pattern {
 ```shell
 exit
 umount -n -R /mnt
+zpool export data
 reboot
 ```
