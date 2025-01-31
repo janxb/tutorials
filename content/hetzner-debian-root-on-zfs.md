@@ -101,9 +101,14 @@ iface eno1 inet6 static
 # when asked, always select en_US.UTF-8
 apt update && apt install -y locales && dpkg-reconfigure locales && apt install -y efibootmgr wget console-setup openssh-server
 
-# enable PermitRootLogin in /etc/ssh/sshd_config
+echo PermitRootLogin yes >> /etc/ssh/sshd_config
 
 apt install -y linux-image-amd64 zfs-initramfs dosfstools
+
+# uncomment if you are using encryption - we are storing your ZFS key in a file inside the initramfs, this avoids duplicated key prompts
+#echo YOUR_ZFS_ENCRYPTION_KEY > /etc/zfs/data.key
+#chmod 600 /etc/zfs/data.key
+#zfs change-key -o keylocation=file:///etc/zfs/data.key -o keyformat=passphrase data
 
 update-initramfs -c -k all
 ```
