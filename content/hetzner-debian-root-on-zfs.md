@@ -118,12 +118,11 @@ update-initramfs -c -k all
 ```shell
 mount -a
 
-wget https://github.com/zbm-dev/zfsbootmenu/releases/download/v2.3.0/zbm-kcl && chmod +x zbk-kcl
-
 # repeat for all disks that have EFI partition
-mkdir -p /boot/efi1/EFI/ZBM
-wget https://get.zfsbootmenu.org/efi -O /boot/efi1/EFI/ZBM/VMLINUZ.EFI
-./zbm-kcl -a zbm.skip /boot/efi1/EFI/ZBM/VMLINUZ.EFI
+EFIFOLDER=/boot/efi1
+mkdir -p $EFIFOLDER/EFI/ZBM
+wget https://get.zfsbootmenu.org/efi -O $EFIFOLDER/EFI/ZBM/VMLINUZ.EFI
+bash <(wget -qO- https://github.com/zbm-dev/zfsbootmenu/releases/download/v2.3.0/zbm-kcl) -a zbm.skip $EFIFOLDER/EFI/ZBM/VMLINUZ.EFI
 efibootmgr -c -d "/dev/nvme0n1" -p "1" \
   -L "ZFSBootMenu" \
   -l '\EFI\ZBM\VMLINUZ.EFI'
