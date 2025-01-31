@@ -25,6 +25,7 @@ If your server has more than one disk, you need to format all of them with the f
 # repeat for additional disks if required
 mkfs.vfat -F32 /dev/nvme0n1p1
 
+# enable commented lines when using encryption
 zpool create \
 -o compatibility=openzfs-2.1-linux \
 -o autotrim=on \
@@ -34,6 +35,9 @@ zpool create \
 -O relatime=on \
 -O canmount=off \
 -O mountpoint=none \
+#-O encryption=aes-128-gcm \
+#-O keyformat=passphrase \
+#-O keylocation=prompt \
 data /dev/nvme0n1p2
 
 zfs create -o mountpoint=/ -o canmount=noauto data/root
@@ -41,7 +45,10 @@ zfs create -o mountpoint=/ -o canmount=noauto data/root
 zpool set bootfs=data/root data
 
 zpool export data
-zpool import -N -R /mnt data && zfs mount data/root
+zpool import -N -R /mnt data
+# uncomment when using encryption
+#zfs load-key data
+zfs mount data/root
 ```
 
 ## Install base debian system
@@ -91,6 +98,7 @@ iface eno1 inet6 static
   gateway fe80::1
 " > /etc/network/interfaces
 
+# when asked, always select en_US.UTF-8
 apt update && apt install -y locales && dpkg-reconfigure locales && apt install -y efibootmgr wget console-setup openssh-server
 
 # enable PermitRootLogin in /etc/ssh/sshd_config
