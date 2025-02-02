@@ -47,7 +47,7 @@ zpool set bootfs=data/root data
 zpool export data
 zpool import -N -R /mnt data
 # uncomment when using encryption
-#zfs load-key data
+#zfs load-key data -L prompt
 zfs mount data/root
 ```
 
