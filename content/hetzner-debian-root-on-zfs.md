@@ -176,3 +176,11 @@ umount -n -R /mnt
 zpool export data
 reboot
 ```
+
+{: .note }
+If you want to change your ZFS encryption passphrase afterwards, please follow the steps below while booted into the system:
+```shell
+echo YOUR_NEW_PASSPHRASE > /etc/zfs/data.key
+zfs change-key -o keylocation=file:///etc/zfs/data.key -o keyformat=passphrase data
+update-initramfs -c -k all
+```
