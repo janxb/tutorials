@@ -7,7 +7,10 @@ layout: default
 This guide will help you setup a server (works on both cloud and dedicated) with Debian 12, Root-on-ZFS filesystem and ZFSBootMenu as GRUB alternative.
 
 {: .danger }
-If you are following this tutorial on Hetzner Cloud virtual machines, please note that not all instance types are equipped with UEFI. If you want to make sure you get an UEFI-enabled instance, please select one of the `dedicated vCPU` instance types.
+If you are following this tutorial on Hetzner Cloud virtual machines, please note that not all instance types are equipped with UEFI. You need to either select a "dedicated vCPU" instance, or create a ticket for Hetzner support, asking then to switch your machine to UEFI.
+
+{: .note }
+__Hint:__ If you are using an encrypted ZFS setup, I suggest that you use a number-only passphrase to mitigate issues with the Hetzner KVM console like wrong keyboard layout, wrong capitalization or other variants of mangling your input.
 
 ## Reboot your server into recovery system
 
