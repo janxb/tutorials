@@ -153,6 +153,8 @@ APT::Periodic::Download-Upgradeable-Packages "1";
 APT::Periodic::Unattended-Upgrade "1";
 APT::Periodic::AutocleanInterval "14";
 APT::Periodic::Verbose "0";
+Unattended-Upgrade::Automatic-Reboot "true"
+Unattended-Upgrade::Automatic-Reboot-Time "02:00";
 ' > /etc/apt/apt.conf.d/51unattended-upgrades-custom-config
 echo '
 Unattended-Upgrade::Origins-Pattern {
