@@ -110,8 +110,9 @@ apt install -y linux-image-generic zfs-initramfs dosfstools
 
 # uncomment if you are using encryption - we are storing your ZFS key in a file inside the initramfs, this avoids duplicated key prompts
 #echo YOUR_ZFS_ENCRYPTION_KEY > /etc/zfs/data.key
-#chmod 600 /etc/zfs/data.key
+#chmod 000 /etc/zfs/data.key
 #zfs change-key -o keylocation=file:///etc/zfs/data.key -o keyformat=passphrase data
+#echo "UMASK=0077" > /etc/initramfs-tools/conf.d/umask.conf
 
 update-initramfs -c -k all
 ```
@@ -121,11 +122,13 @@ update-initramfs -c -k all
 ```shell
 mount -a
 
+zfs set org.zfsbootmenu:commandline="quiet" data/root
+zfs set org.zfsbootmenu:keysource="data/root" data
+
 # repeat for all disks that have EFI partition
 EFIFOLDER=/boot/efi1
 mkdir -p $EFIFOLDER/EFI/ZBM
 wget https://get.zfsbootmenu.org/efi -O $EFIFOLDER/EFI/ZBM/VMLINUZ.EFI
-bash <(wget -qO- https://raw.githubusercontent.com/zbm-dev/zfsbootmenu/refs/heads/master/bin/zbm-kcl) -a zbm.skip $EFIFOLDER/EFI/ZBM/VMLINUZ.EFI
 efibootmgr -c -d "/dev/nvme0n1" -p "1" \
   -L "ZFSBootMenu" \
   -l '\EFI\ZBM\VMLINUZ.EFI'
