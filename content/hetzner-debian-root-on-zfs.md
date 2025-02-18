@@ -122,7 +122,7 @@ mount -a
 EFIFOLDER=/boot/efi1
 mkdir -p $EFIFOLDER/EFI/ZBM
 wget https://get.zfsbootmenu.org/efi -O $EFIFOLDER/EFI/ZBM/VMLINUZ.EFI
-bash <(wget -qO- https://github.com/zbm-dev/zfsbootmenu/releases/download/v2.3.0/zbm-kcl) -a zbm.skip $EFIFOLDER/EFI/ZBM/VMLINUZ.EFI
+bash <(wget -qO- https://raw.githubusercontent.com/zbm-dev/zfsbootmenu/refs/heads/master/bin/zbm-kcl) -a zbm.skip $EFIFOLDER/EFI/ZBM/VMLINUZ.EFI
 efibootmgr -c -d "/dev/nvme0n1" -p "1" \
   -L "ZFSBootMenu" \
   -l '\EFI\ZBM\VMLINUZ.EFI'
