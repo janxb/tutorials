@@ -32,6 +32,7 @@ mkfs.vfat -F32 /dev/nvme0n1p1
 zpool create \
 -o compatibility=openzfs-2.1-linux \
 -o autotrim=on \
+-o autoexpand=on \
 -O compression=lz4 \
 -O acltype=posixacl \
 -O xattr=sa \
