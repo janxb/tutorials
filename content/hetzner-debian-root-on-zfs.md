@@ -170,6 +170,22 @@ Unattended-Upgrade::Origins-Pattern {
 ' > /etc/apt/apt.conf.d/52unattended-upgrades-custom-origins
 ```
 
+## (Optional) - Install systemd-resolved and connect to Quad9 DoT server
+```shell
+apt install -y systemd-resolved
+echo '
+[Resolve]
+DNS=2620:fe::fe#dns.quad9.net
+DNS=2620:fe::9#dns.quad9.net
+DNS=9.9.9.9#dns.quad9.net
+DNS=149.112.112.112#dns.quad9.net
+DNSOverTLS=yes
+DNSSEC=yes
+Cache=no
+' > /etc/systemd/resolved.conf
+systemctl restart systemd-resolved.service
+```
+
 ## Final steps
 ```shell
 exit
