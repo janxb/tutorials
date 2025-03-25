@@ -146,6 +146,8 @@ efibootmgr -o x,x,x...
 apt install -y git
 git clone https://github.com/janxb/serverutils.git /usr/local/sbin
 
+apt install -y smartmontools nvme-cli
+
 apt install -y bash-completion
 echo "
 if [ -f /etc/bash_completion ]; then
