@@ -147,7 +147,7 @@ apt install -y git
 git clone https://github.com/janxb/serverutils.git /usr/local/sbin
 
 # additional useful tools
-apt install -y smartmontools nvme-cli psmisc socat zip unzip htop
+apt install -y smartmontools nvme-cli psmisc socat zip unzip htop net-tools
 
 apt install -y bash-completion
 echo "
