@@ -187,6 +187,7 @@ DNS=149.112.112.112#dns.quad9.net
 DNSOverTLS=yes
 DNSSEC=yes
 Cache=no
+LLMNR=no
 ' > /etc/systemd/resolved.conf
 systemctl restart systemd-resolved.service
 ```
