@@ -76,6 +76,7 @@ UUID=XXXX-XXXX  /boot/efi1      vfat    umask=0022,fmask=0022,dmask=0022      0 
 echo "
 deb http://deb.debian.org/debian bookworm contrib main non-free-firmware
 deb http://deb.debian.org/debian bookworm-updates contrib main non-free-firmware
+deb http://deb.debian.org/debian bookworm-backports contrib main non-free-firmware
 deb http://deb.debian.org/debian-security bookworm-security contrib main non-free-firmware
 " > /mnt/etc/apt/sources.list
 
@@ -107,7 +108,8 @@ apt update && apt install -y locales && dpkg-reconfigure locales && apt install 
 
 echo PermitRootLogin yes >> /etc/ssh/sshd_config
 
-apt install -y linux-image-generic zfs-initramfs dosfstools
+apt install -y linux-image-generic dosfstools
+apt install -y -t stable-backports zfs-initramfs
 
 # uncomment if you are using encryption - we are storing your ZFS key in a file inside the initramfs, this avoids duplicated key prompts
 #echo YOUR_ZFS_ENCRYPTION_KEY > /etc/zfs/data.key
