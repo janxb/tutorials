@@ -149,6 +149,10 @@ git clone https://github.com/janxb/serverutils.git /usr/local/sbin
 # additional useful tools
 apt install -y smartmontools nvme-cli psmisc socat zip unzip htop net-tools
 
+# automatic time sync via NTP
+apt install -y systemd-timesyncd
+
+# auto-completion in bash
 apt install -y bash-completion
 echo "
 if [ -f /etc/bash_completion ]; then
